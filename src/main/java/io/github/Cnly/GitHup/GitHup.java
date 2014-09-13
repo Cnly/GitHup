@@ -30,7 +30,7 @@ public class GitHup
      * @param username GitHub username
      * @param repoName GitHub repo name
      * @param projectName project name in the repo
-     * @param checkInterval check interval
+     * @param checkInterval check interval in milliseconds
      * @param originalVersion original version information
      * @param listener The GitHup Listener for calling back when an update is available
      * @throws MalformedURLException 

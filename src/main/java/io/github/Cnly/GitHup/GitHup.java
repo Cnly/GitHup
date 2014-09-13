@@ -21,6 +21,9 @@ public class GitHup
     private final URL baseUrl;
     private final URL infoUrl;
     
+    private boolean started = false;
+    private Timer timer = null;
+    
     private static final Pattern VERSION_PATTERN = Pattern.compile("version: (.*)");
     private static final Pattern RELEASE_DATE_PATTERN = Pattern.compile("releaseDate: (.*)");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("description: (.*)", Pattern.DOTALL);
@@ -47,6 +50,17 @@ public class GitHup
         
         this.baseUrl = new URL(new StringBuilder("https://raw.githubusercontent.com/").append(username).append('/').append(repoName).append("/githup-updates/").append(projectName).append("/").toString());
         this.infoUrl = new URL(baseUrl, "info.txt");
+        
+    }
+    
+    /**
+     * Start checking for updates.
+     * @return false if it's already started. Otherwise true.
+     */
+    public boolean start()
+    {
+        
+        if(started) return false;
         
         TimerTask timerTask = new TimerTask()
         {
@@ -100,9 +114,27 @@ public class GitHup
             
         };
         
-        Timer timer = new Timer();
+        this.timer = new Timer();
         timer.schedule(timerTask, 0L, this.checkInterval);
         
+        started = true;
+        
+        return true;
+    }
+    
+    /**
+     * Stop checking for updates. Once a GitHup is stopped, it cannot
+     * be started again.
+     * @return false if it's not started or it's been stopped once.
+     */
+    public boolean stop()
+    {
+        
+        if(!started) return false;
+        
+        timer.cancel();
+        
+        return true;
     }
     
     /**
@@ -129,6 +161,11 @@ public class GitHup
         description = descriptionMatcher.group(1);
         
         return new VersionInfo(version, releaseDate, description);
+    }
+
+    public boolean isStarted()
+    {
+        return started;
     }
     
 }

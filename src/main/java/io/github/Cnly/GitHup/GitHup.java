@@ -68,15 +68,17 @@ public class GitHup
                 {
                     e1.printStackTrace();
                 }
+                
                 char[] buffer = new char[1024];
                 StringBuilder sb = new StringBuilder();
+                int charsRead = 0;
                 
                 try
                 {
-                    while((reader.read(buffer)) != -1)
+                    while((charsRead = reader.read(buffer)) != -1)
                     {
                         
-                        sb.append(buffer);
+                        sb.append(buffer, 0, charsRead);
                         
                     }
                 }

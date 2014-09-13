@@ -7,7 +7,7 @@ It uses GitHub as the site for checking for updates and downloading updates(plan
 Usage
 ------
 
-In your project, create an instance of GitHup(documented) and it's done!
+In your project, create an instance of GitHup(documented), call start() and it's done!
 
 In your repo, create a branch called githup-updates. In that branch, you can create folders for your projects.
 Folder structure:

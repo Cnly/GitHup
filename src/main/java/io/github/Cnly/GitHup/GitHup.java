@@ -103,49 +103,7 @@ public class GitHup
             public void run()
             {
                 
-                BufferedReader reader = null;
-                try
-                {
-                    reader = new BufferedReader(new InputStreamReader(
-                            infoUrl.openStream(), "utf-8"));
-                }
-                catch (UnsupportedEncodingException e1)
-                {
-                    e1.printStackTrace();
-                }
-                catch (IOException e1)
-                {
-                    e1.printStackTrace();
-                }
-                
-                char[] buffer = new char[1024];
-                StringBuilder sb = new StringBuilder();
-                int charsRead = 0;
-                
-                try
-                {
-                    while ((charsRead = reader.read(buffer)) != -1)
-                    {
-                        
-                        sb.append(buffer, 0, charsRead);
-                        
-                    }
-                }
-                catch (IOException e)
-                {
-                    new IOException(
-                            "An error occured while checking for update!", e)
-                            .printStackTrace();
-                }
-                
-                VersionInfo info = toVersionInfo(sb.toString());
-                
-                if (!GitHup.this.originalVersion.equals(info))
-                {// An update is available!
-                
-                    GitHup.this.listener.onUpdateAvailable(info);
-                    
-                }
+               checkForUpdates(); 
                 
             }
             
@@ -173,6 +131,58 @@ public class GitHup
         timer.cancel();
         
         return true;
+    }
+    
+    /**
+     * Checks for updates manually
+     */
+    public void checkForUpdates()
+    {
+        
+        BufferedReader reader = null;
+        try
+        {
+            reader = new BufferedReader(new InputStreamReader(
+                    infoUrl.openStream(), "utf-8"));
+        }
+        catch (UnsupportedEncodingException e1)
+        {
+            e1.printStackTrace();
+        }
+        catch (IOException e1)
+        {
+            e1.printStackTrace();
+        }
+        
+        char[] buffer = new char[1024];
+        StringBuilder sb = new StringBuilder();
+        int charsRead = 0;
+        
+        try
+        {
+            while ((charsRead = reader.read(buffer)) != -1)
+            {
+                
+                sb.append(buffer, 0, charsRead);
+                
+            }
+        }
+        catch (IOException e)
+        {
+            new IOException(
+                    "An error occured while checking for update!", e)
+                    .printStackTrace();
+        }
+        
+        VersionInfo info = toVersionInfo(sb.toString());
+        
+        if (!this.originalVersion.equals(info))
+        {// An update is available!
+        
+            this.listener.onUpdateAvailable(info);
+            
+        }
+        
     }
     
     /**

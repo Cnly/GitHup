@@ -31,20 +31,26 @@ public class VersionInfo
         return "VersionInfo [version=" + version + ", releaseDate="
                 + releaseDate + ", description=" + description + "]";
     }
-
+    
+    /**
+     * Calculates the hash code.
+     * The field <code>description</code> is NOT involved.
+     */
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                + ((description == null) ? 0 : description.hashCode());
-        result = prime * result
                 + ((releaseDate == null) ? 0 : releaseDate.hashCode());
         result = prime * result + ((version == null) ? 0 : version.hashCode());
         return result;
     }
-
+    
+    /**
+     * Check if two <code>VersionInfo</code>s are equal. The field
+     * <code>description</code> is NOT compared.
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -52,21 +58,16 @@ public class VersionInfo
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         VersionInfo other = (VersionInfo) obj;
-        if (description == null)
-        {
-            if (other.description != null) return false;
-        }
-        else if (!description.equals(other.description)) return false;
-        if (releaseDate == null)
-        {
-            if (other.releaseDate != null) return false;
-        }
-        else if (!releaseDate.equals(other.releaseDate)) return false;
         if (version == null)
         {
             if (other.version != null) return false;
         }
         else if (!version.equals(other.version)) return false;
+        if (releaseDate == null)
+        {
+            if (other.releaseDate != null) return false;
+        }
+        else if (!releaseDate.equals(other.releaseDate)) return false;
         return true;
     }
 

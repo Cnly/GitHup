@@ -32,7 +32,7 @@ public class GitHup
             "description: (.*)", Pattern.DOTALL);
     
     /**
-     * Create an instance of GitHup and start a timer task to check for updates.
+     * Create an instance of GitHup.
      * 
      * @param username
      *            GitHub username

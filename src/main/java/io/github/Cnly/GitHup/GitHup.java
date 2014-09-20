@@ -33,6 +33,11 @@ public class GitHup
     
     /**
      * Create an instance of GitHup.
+     * Once the GitHup instance is started, it will check the info.txt
+     * and parse it into a {@link VersionInfo}. Then, GitHup will compare
+     * it with the <code>originalVersion</code>. If they are different in
+     * <code>version</code> and <code>releaseDate</code>, GitHup will
+     * call <code>listener.onUpdateAvailable(versionInfo)</code>.
      * 
      * @param username
      *            GitHub username

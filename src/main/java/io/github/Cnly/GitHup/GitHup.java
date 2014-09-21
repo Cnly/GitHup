@@ -127,7 +127,8 @@ public class GitHup
      * Stop checking for updates. Once a GitHup is stopped, it cannot be started
      * again.
      * 
-     * @return false if it's not started or it's been stopped once.
+     * @return false if it's not started or it's been stopped once before or true if it's
+     * stopped successfully.
      */
     public boolean stop()
     {

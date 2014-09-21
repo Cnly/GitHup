@@ -28,6 +28,7 @@ public class GitHup
             .compile("version: (.*)");
     private static final Pattern RELEASE_DATE_PATTERN = Pattern
             .compile("releaseDate: (.*)");
+    private static final Pattern DOWNLOAD_LINK_PATTERN = Pattern.compile("downloadLink: (.*)");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile(
             "description: (.*)", Pattern.DOTALL);
     
@@ -202,6 +203,7 @@ public class GitHup
         
         String version = null;
         String releaseDate = null;
+        String downloadLink = null; 
         String description = null;
         
         Matcher versionMatcher = VERSION_PATTERN.matcher(infoFileContents);
@@ -217,6 +219,9 @@ public class GitHup
                     "Cannot find the releaseDate field in the info.txt!");
         releaseDate = releaseDateMatcher.group(1);
         
+        Matcher downloadLinkMatcher = DOWNLOAD_LINK_PATTERN.matcher(infoFileContents);
+        if(downloadLinkMatcher.find()) downloadLink = downloadLinkMatcher.group(1);
+        
         Matcher descriptionMatcher = DESCRIPTION_PATTERN
                 .matcher(infoFileContents);
         if (!descriptionMatcher.find())
@@ -224,7 +229,7 @@ public class GitHup
                     "Cannot find the description field in the info.txt!");
         description = descriptionMatcher.group(1);
         
-        return new VersionInfo(version, releaseDate, description);
+        return new VersionInfo(version, releaseDate, description, downloadLink);
     }
     
     public boolean isStarted()

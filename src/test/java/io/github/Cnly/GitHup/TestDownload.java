@@ -17,8 +17,10 @@ public class TestDownload
         {
             
             @Override
-            public void onUpdateAvailable(VersionInfo info)
+            public void onUpdateAvailable(GitHup githup, VersionInfo info)
             {
+                
+                Assert.assertTrue(githup.stop());
                 
                 System.out.println("version without link:\n" + info);
                 
@@ -34,8 +36,10 @@ public class TestDownload
         {
             
             @Override
-            public void onUpdateAvailable(VersionInfo info)
+            public void onUpdateAvailable(GitHup githup, VersionInfo info)
             {
+                
+                Assert.assertTrue(githup.stop());
                 
                 System.out.println("version with link:\n" + info);
                 

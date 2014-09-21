@@ -3,6 +3,6 @@ package io.github.Cnly.GitHup;
 public interface GitHupListener
 {
     
-    public void onUpdateAvailable(VersionInfo info);
+    public void onUpdateAvailable(GitHup githup, VersionInfo info);
     
 }

@@ -185,7 +185,7 @@ public class GitHup
         if (!this.originalVersion.equals(info))
         {// An update is available!
         
-            this.listener.onUpdateAvailable(info);
+            this.listener.onUpdateAvailable(this, info);
             
         }
         

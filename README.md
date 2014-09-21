@@ -25,8 +25,11 @@ The format of the info.txt is:
 
     version: YOUR_VERSION_HERE_AS_STRING
     releaseDate: YOUR_DATE_HERE_AS_STRING
+    downloadLink: https://here.to.download.me/new.jar
     description: YOUR_DESCRIPTION_HERE
     MULTILINE_SUPPORTED_FOR_DESCRIPTION
+    
+Note: `downloadLink` is optional.
 
 ToDo
 ------

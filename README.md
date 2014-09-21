@@ -30,4 +30,4 @@ The format of the info.txt is:
 
 ToDo
 ------
-Add the downloading function.
+(PRs and issues are welcome!)

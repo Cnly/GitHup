@@ -151,13 +151,10 @@ public class VersionInfo
         
         if(!file.exists()) file.createNewFile();
         
-        BufferedOutputStream bos = null;
-        BufferedInputStream bis = null;
-        try
+        try(BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+                BufferedInputStream bis = new BufferedInputStream(new URL(downloadLink).openStream());)
         {
             
-            bos = new BufferedOutputStream(new FileOutputStream(file));
-            bis = new BufferedInputStream(new URL(downloadLink).openStream());
             byte[] buffer = new byte[2048];
             int bytesRead = 0;
             
@@ -166,32 +163,6 @@ public class VersionInfo
                 
                 bos.write(buffer, 0, bytesRead);
                 
-            }
-            
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            
-            try
-            {
-                if(bos != null) bos.close();
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
-            
-            try
-            {
-                if(bis != null) bis.close();
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
             }
             
         }

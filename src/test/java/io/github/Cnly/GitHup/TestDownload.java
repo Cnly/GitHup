@@ -68,7 +68,43 @@ public class TestDownload
             
         }).start();
         
-        System.out.println("TESTS HAVE STARTED. THE MAIN THREAD WILL WAIT ABOUT 20 SEC FOR THE TEST TO FINISH.");
+        new GitHup("Cnly", "GitHupTest", "test-ghlink", 600000L, new VersionInfo("thatVersion", "yesterday"), new GitHupListener()
+        {
+            
+            @Override
+            public void onUpdateAvailable(GitHup githup, VersionInfo info)
+            {
+                
+                Assert.assertTrue(githup.stop());
+                
+                System.out.println("version with GHlink:\n" + info);
+                
+                Assert.assertTrue(info.hasDownloadLink());
+                
+                try
+                {
+                    
+                    System.out.println("downloading to download/");
+                    info.download(new File("download/"));
+                    Assert.assertTrue(new File("download/me.txt").exists());
+                    
+                    System.out.println("downloading to download/myself.txt");
+                    info.download(new File("download"), "myself.txt");
+                    Assert.assertTrue(new File("download/myself.txt").exists());
+                    
+                    System.out.println("version with GHlink test ended!");
+                    
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                
+            }
+            
+        }).start();
+        
+        System.out.println("TESTS HAVE STARTED. THE MAIN THREAD WILL WAIT ABOUT 20 SEC FOR THE TESTS TO FINISH.");
         
         try
         {

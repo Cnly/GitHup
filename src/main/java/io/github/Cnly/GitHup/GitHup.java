@@ -8,8 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class GitHup
 {
@@ -23,14 +21,6 @@ public class GitHup
     
     private boolean started = false;
     private Timer timer = null;
-    
-    private static final Pattern VERSION_PATTERN = Pattern
-            .compile("version: (.*)");
-    private static final Pattern RELEASE_DATE_PATTERN = Pattern
-            .compile("releaseDate: (.*)");
-    private static final Pattern DOWNLOAD_LINK_PATTERN = Pattern.compile("downloadLink: (.*)");
-    private static final Pattern DESCRIPTION_PATTERN = Pattern.compile(
-            "description: (.*)", Pattern.DOTALL);
     
     /**
      * Create an instance of GitHup.
@@ -181,7 +171,7 @@ public class GitHup
                     .printStackTrace();
         }
         
-        VersionInfo info = toVersionInfo(sb.toString());
+        VersionInfo info = VersionInfo.fromInfoString(sb.toString());
         
         if (!this.originalVersion.equals(info))
         {// An update is available!
@@ -190,47 +180,6 @@ public class GitHup
             
         }
         
-    }
-    
-    /**
-     * Create an instance of UpdateInfo with the information from
-     * infoFileContents
-     * 
-     * @param infoFileContents
-     *            the contents of info.txt
-     */
-    private static VersionInfo toVersionInfo(String infoFileContents)
-    {
-        
-        String version = null;
-        String releaseDate = null;
-        String downloadLink = null; 
-        String description = null;
-        
-        Matcher versionMatcher = VERSION_PATTERN.matcher(infoFileContents);
-        if (!versionMatcher.find())
-            throw new AssertionError(
-                    "Cannot find the version field in the info.txt!");
-        version = versionMatcher.group(1);
-        
-        Matcher releaseDateMatcher = RELEASE_DATE_PATTERN
-                .matcher(infoFileContents);
-        if (!releaseDateMatcher.find())
-            throw new AssertionError(
-                    "Cannot find the releaseDate field in the info.txt!");
-        releaseDate = releaseDateMatcher.group(1);
-        
-        Matcher downloadLinkMatcher = DOWNLOAD_LINK_PATTERN.matcher(infoFileContents);
-        if(downloadLinkMatcher.find()) downloadLink = downloadLinkMatcher.group(1);
-        
-        Matcher descriptionMatcher = DESCRIPTION_PATTERN
-                .matcher(infoFileContents);
-        if (!descriptionMatcher.find())
-            throw new AssertionError(
-                    "Cannot find the description field in the info.txt!");
-        description = descriptionMatcher.group(1);
-        
-        return new VersionInfo(version, releaseDate, description, downloadLink);
     }
     
     public boolean isStarted()

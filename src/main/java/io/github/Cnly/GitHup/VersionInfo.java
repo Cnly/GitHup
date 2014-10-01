@@ -117,11 +117,24 @@ public class VersionInfo
         return downloadLink;
     }
     
+    /**
+     * Downloads the update file to <code>path</code> without changing
+     * the filename.
+     * @param path where to put the file
+     * @throws IOException
+     */
     public void download(File path) throws IOException
     {
         download(path, null);
     }
     
+    /**
+     * Downloads the update file to <code>path</code> and change
+     * the filename.
+     * @param path where to put the file
+     * @param fileName the new filename
+     * @throws IOException
+     */
     public void download(File path, String fileName) throws IOException
     {
         

@@ -21,7 +21,7 @@ Folder structure:
     | |- info.txt
     ---
 
-The format of the info.txt is:
+The format of info.txt is:
 
     version: YOUR_VERSION_HERE_AS_STRING
     releaseDate: YOUR_DATE_HERE_AS_STRING
@@ -30,6 +30,7 @@ The format of the info.txt is:
     MULTILINE_SUPPORTED_FOR_DESCRIPTION
     
 Note: `downloadLink` is optional.
+
 Note2: `downloadLink` has 2 formats. One is a normal URL and the other is gh:`username`:`repoName`:`projectName`:`filename` which will be converted to the file `filename` in folder `projectName/files/` in branch `githup-updates` in your repo `repoName`.
 
 TODO
